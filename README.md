@@ -25,7 +25,8 @@ let i3 = buffer.readUInt32LE(3);
 let i4 = buffer.readDoubleBE(7);
 ```
 
-**With `Ginkgoch Buffer Reader`, it automatically manages the read position for you. You don't need to remember the position and the boring type length calculations.**
+**With `Ginkgoch Buffer Reader`**
+It automatically manages the read position for you. You don't need to remember the position and the boring type length calculations.
 ```js
 let i1 = br.nextInt8();
 let i2 = br.nextInt16LE();
