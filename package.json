@@ -1,7 +1,8 @@
 {
   "name": "ginkgoch-buffer-reader",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.js",
+  "homepage": "https://github.com/ginkgoch/node-buffer-reader",
   "scripts": {
     "test": "./node_modules/.bin/jest"
   },
@@ -17,5 +18,9 @@
   "description": "This is a library to help to easily read Buffer instance.",
   "devDependencies": {
     "jest": "^23.4.1"
+  },
+  "repository": {
+    "url": "https://github.com/ginkgoch/node-buffer-reader.git",
+    "type": "git"
   }
 }

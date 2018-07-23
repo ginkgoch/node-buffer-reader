@@ -33,6 +33,8 @@ let i4 = buffer.readDoubleBE(7);
 **With `Ginkgoch Buffer Reader`**
 It automatically manages the read position for you. You don't need to remember the position and the boring type length calculations.
 ```js
+const BufferReader = require('ginkgoch-buffer-reader');
+let br = new BufferReader(buffer);
 let i1 = br.nextInt8();
 let i2 = br.nextInt16LE();
 let i3 = br.nextUInt32LE();
