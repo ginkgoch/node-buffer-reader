@@ -6,6 +6,11 @@ This is a NodeJS library to help to read [Buffer](https://cn.nodejs.org/api/buff
 npm i ginkgoch-buffer-reader --save
 ```
 
+## Test
+```terminal
+npm test
+```
+
 ## Example
 
 **Prepare for data**
