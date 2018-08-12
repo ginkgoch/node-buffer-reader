@@ -5,14 +5,6 @@ module.exports = class BufferReader {
         assert(Buffer.isBuffer(buffer), 'Invalid buffer.');
         this.buffer = buffer;
         this.offset = 0;
-        this._makeNextReadFor('Int8', 1);
-        this._makeNextReadFor('UInt8', 1);
-        this._makeNextReadLEBEFor('UInt16', 2);
-        this._makeNextReadLEBEFor('Int16', 2);
-        this._makeNextReadLEBEFor('UInt32', 4);
-        this._makeNextReadLEBEFor('Int32', 4);
-        this._makeNextReadLEBEFor('Float', 4);
-        this._makeNextReadLEBEFor('Double', 8);
     }
 
     seek(offset, fromBeginning = true) {
@@ -22,6 +14,62 @@ module.exports = class BufferReader {
 
         this._checkOffsetInRange(offset);
         this.offset = offset;
+    }
+
+    nextDoubleLE() {
+        return this._nextXX('DoubleLE', 8);
+    }
+    
+    nextDoubleBE() {
+        return this._nextXX('DoubleBE', 8);
+    }
+
+    nextFloatLE() {
+        return this._nextXX('FloatLE', 4);
+    }
+    
+    nextFloatBE() {
+        return this._nextXX('FloatBE', 4);
+    }
+
+    nextInt32LE() {
+        return this._nextXX('Int32LE', 4);
+    }
+    
+    nextInt32BE() {
+        return this._nextXX('Int32BE', 4);
+    }
+
+    nextUInt32LE() {
+        return this._nextXX('UInt32LE', 4);
+    }
+    
+    nextUInt32BE() {
+        return this._nextXX('UInt32BE', 4);
+    }
+
+    nextUInt16LE() {
+        return this._nextXX('UInt16LE', 2);
+    }
+    
+    nextUInt16BE() {
+        return this._nextXX('UInt16BE', 2);
+    }
+
+    nextInt16LE() {
+        return this._nextXX('Int16LE', 2);
+    }
+    
+    nextInt16BE() {
+        return this._nextXX('Int16BE', 2);
+    }
+
+    nextUInt8() {
+        return this._nextXX('UInt8', 1);
+    }
+
+    nextInt8() {
+        return this._nextXX('Int8', 1);
     }
 
     nextBuffer(length) {
@@ -42,18 +90,12 @@ module.exports = class BufferReader {
         return str;
     }
 
-    _makeNextReadLEBEFor(method, size) {
-        this._makeNextReadFor(method + 'LE', size);
-        this._makeNextReadFor(method + 'BE', size);
-    }
+    _nextXX(type, size) {
+        this._checkOffsetInRange(this.offset + size, 'Offset');
 
-    _makeNextReadFor(method, size) {
-        BufferReader.prototype[`next${method}`] = function() {
-            this._checkOffsetInRange(this.offset + size, 'Offset');
-            const val = this.buffer[`read${method}`](this.offset);
-            this.offset += size;
-            return val;
-        };
+        const v = this.buffer[`read${type}`](this.offset);
+        this.offset += size;
+        return v;
     }
 
     _checkPositive(number, name = 'Length') {
