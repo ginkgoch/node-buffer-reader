@@ -76,8 +76,7 @@ module.exports = class BufferReader {
         this._checkPositive(length);
         this._checkOffsetInRange(this.offset + length);
 
-        const buffer = Buffer.alloc(length);
-        this.buffer.copy(buffer, 0, this.offset, this.offset + length);
+        const buffer = this.buffer.slice(this.offset, this.offset + length);
         this.offset += length;
         return buffer;
     }
